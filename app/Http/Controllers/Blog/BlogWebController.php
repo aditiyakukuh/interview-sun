@@ -34,4 +34,12 @@ class BlogWebController extends Controller
         })->paginate(8);
         return view('blog.index', compact('posts', 'categories'));
     }
+
+    public function myPages()
+    {
+        $categories = Category::all();
+        $posts = Post::where('user_id', auth()->user()->id)->with(['category', 'tags', 'user'])->paginate(8);   
+       
+        return view('blog.index', compact('posts', 'categories'));
+    }
 }

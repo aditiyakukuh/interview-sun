@@ -38,6 +38,10 @@ https://templatemo.com/tm-553-xtra-blog
                         {{ $category->name }}
                     </a></li>
                     @endforeach
+                    <li class="tm-nav-item"><a href="{{ route('blog.myPages') }}" class="tm-nav-link">
+                        <i class="fas fa-home"></i>
+                        My Pages
+                    </a></li>
                     <form action="{{ route('logout') }}" method="POST" style="padding-left: 10px">
                         @csrf
                         <li class="tm-nav-item"> <button type="submit"  class="tm-nav-link">Logout</button></li>
@@ -103,7 +107,7 @@ https://templatemo.com/tm-553-xtra-blog
                             @endif
                         @endforeach
                         </div>
-                        <span class="tm-color-primary">June 24, 2020</span>
+                        <span class="tm-color-primary">{{ $post->created_at->format('F d, Y') }}</span>
                     </div>           
                     <hr>
                     <div class="d-flex justify-content-between">

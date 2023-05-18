@@ -31,6 +31,7 @@ Route::middleware(['auth', 'blogWeb'])->group(function () {
         Route::get('/home', [BlogWebController::class, 'index'])->name('blog.index');
         Route::get('/category/{category_id}', [BlogWebController::class, 'byCategory'])->name('blog.byCategory');
         Route::get('/tag/{tag_id}', [BlogWebController::class, 'byTag'])->name('blog.byTag');
+        Route::get('/my-pages', [BlogWebController::class, 'myPages'])->name('blog.myPages');
     });
 });
 
@@ -54,4 +55,6 @@ Route::get('/cart/new-total', [CartController::class, 'getNewTotal'])->name('car
 Route::get('cart/add/{id}', [CartController::class, 'addCart'])->name('cart.add');
 Route::delete('cart/delete/{id}', [CartController::class, 'deleteCart'])->name('cart.delete');
 
-Auth::routes();
+Route::fallback(function () {
+    return redirect()->route('login');
+});
