@@ -24,6 +24,7 @@
                         @endif
                     @endforeach
                     </div>
+                    <span class="tm-color-primary">{{ $post->category->name }}</span>
                 </div>  
             </div>
         </div>
