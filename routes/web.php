@@ -29,6 +29,7 @@ Auth::routes();
 Route::middleware(['auth', 'blogWeb'])->group(function () {
     Route::prefix('blog')->group(function () {
         Route::get('/home', [BlogWebController::class, 'index'])->name('blog.index');
+        Route::get('/detail/{post_id}', [BlogWebController::class, 'show'])->name('blog.detail');
         Route::get('/category/{category_id}', [BlogWebController::class, 'byCategory'])->name('blog.byCategory');
         Route::get('/tag/{tag_id}', [BlogWebController::class, 'byTag'])->name('blog.byTag');
         Route::get('/my-pages', [BlogWebController::class, 'myPages'])->name('blog.myPages');

@@ -42,4 +42,15 @@ class BlogWebController extends Controller
        
         return view('blog.index', compact('posts', 'categories'));
     }
+
+    public function show($post_id)
+    {
+        $categories = Category::all();
+        $post = Post::with(['tags'])->first();
+        $tagIds = $post->tags->pluck('id')->toArray();
+        $related_posts = Post::where('category_id', $post->category->id)->whereHas('tags', function ($query) use ($tagIds) {
+            $query->whereIn('tag_id', $tagIds);
+        })->take(5)->get();
+        return view('blog.detail', compact('post', 'categories', 'related_posts'));
+    }
 }
