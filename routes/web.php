@@ -48,13 +48,15 @@ Route::middleware(['auth', 'olshop'])->group(function () {
 
 Route::get('/test-payment/{id}', [PaymentController::class, 'index'])->name('test.payment');
 Route::post('/payment-callback', PaymentCallbackController::class)->name('payment_callback');
-Route::get('checkout', CheckoutController::class)->name('checkout');
+Route::get('checkout/{shipping_cost}', CheckoutController::class)->name('checkout');
 
 //for ajax
 Route::post('/cart/{id}', [CartController::class, 'updateQty'])->name('cart.qty.update')->secure();
 Route::get('/cart/new-total', [CartController::class, 'getNewTotal'])->name('cart.new.total')->secure();
 Route::get('cart/add/{id}', [CartController::class, 'addCart'])->name('cart.add');
 Route::delete('cart/delete/{id}', [CartController::class, 'deleteCart'])->name('cart.delete');
+
+Route::get('shipping-cost/{city_id}', [CartController::class, 'shippingCost'])->name('cart.shipping-cost');
 
 Route::fallback(function () {
     return redirect()->route('login');

@@ -16,7 +16,7 @@ class CheckoutController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke()
+    public function __invoke($shipping_cost)
     {
         $cart = Cart::where('user_id', 1)->first();
         DB::beginTransaction();
@@ -24,7 +24,7 @@ class CheckoutController extends Controller
             $order = Order::create([
                 'order_id' => rand(),
                 'status' => 'created',
-                'total_amount' => $cart->getTotalAmount(),
+                'total_amount' => $cart->getTotalAmount() + $shipping_cost,
                 'user_id' => 1
             ]);
             foreach ($cart->item as $cart_item) {
